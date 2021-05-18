@@ -1,23 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import * as React from 'react';
+import { StatusBar } from 'react-native';
+import { ThemeProvider } from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import { theme } from './StyleSheet';
+import Navigation from './Navigation';
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+const App = () => (
+  <SafeAreaProvider>
+    <StatusBar backgroundColor={theme.colors.blue1} />
+    <ThemeProvider theme={theme}>
+      <Navigation />
+    </ThemeProvider>
+  </SafeAreaProvider>
+);
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
-  }
-}
+export default App;
